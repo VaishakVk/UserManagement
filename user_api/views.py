@@ -16,82 +16,96 @@ def home(request):
     return render(request, 'home.html')
 
 # /user/<userid>
+@csrf_exempt
 def get_permissions_user(request, user_id):
-    permission_data = get_permissions(user_id)
-    
-    if permission_data['status'] == "Success":
-        return JsonResponse(permission_data["data"], status= 200, safe=False)
-    elif permission_data['status'] == "Error":
-        return JsonResponse(permission_data, status= 400, safe=False)
+    if request.method == 'GET':
+        permission_data = get_permissions(user_id)
+        
+        if permission_data['status'] == "Success":
+            return JsonResponse(permission_data["data"], status= 200, safe=False)
+        elif permission_data['status'] == "Error":
+            return JsonResponse(permission_data, status= 400, safe=False)
+    else:
+        return error_404(request, None)
 
 # /checkpermission/?userid=<user_id>&permissionid=<permission_id>
+@csrf_exempt
 def check_user_permission(request):
-    user_id = request.GET.get('userid')
-    permission_id = request.GET.get('permissionid')
+    if request.method == 'GET':
+        user_id = request.GET.get('userid')
+        permission_id = request.GET.get('permissionid')
 
-    if (not user_id):
-        return JsonResponse({"message": "User Id is not provided"}, status= 400, safe=False)
+        if (not user_id):
+            return JsonResponse({"message": "User Id is not provided"}, status= 400, safe=False)
 
-    if (not permission_id):
-        return JsonResponse({"message": "Permission ID is not provided"}, status= 400, safe=False)
+        if (not permission_id):
+            return JsonResponse({"message": "Permission ID is not provided"}, status= 400, safe=False)
 
-    if (not get_permission_details(permission_id)):
-        return JsonResponse({"message": "Permission ID is invalid"}, status= 404, safe=False)
+        if (not get_permission_details(permission_id)):
+            return JsonResponse({"message": "Permission ID is invalid"}, status= 404, safe=False)
 
-    permission_data = get_permissions(user_id)
-    
-    if permission_data['status'] == "Success":
-        for i in permission_data['data']:
-            if i['id'] == permission_id:
-                return JsonResponse({'message': True}, status= 200, safe=False)        
-        return JsonResponse({"message": False}, status= 404, safe=False)
+        permission_data = get_permissions(user_id)
+        
+        if permission_data['status'] == "Success":
+            for i in permission_data['data']:
+                if i['id'] == permission_id:
+                    return JsonResponse({'message': True}, status= 200, safe=False)        
+            return JsonResponse({"message": False}, status= 404, safe=False)
 
-    elif permission_data['status'] == "Error":
-        return JsonResponse(permission_data, status= 400, safe=False)
-
+        elif permission_data['status'] == "Error":
+            return JsonResponse(permission_data, status= 400, safe=False)
+    else:
+        return error_404(request, None)
 # /roles/<roleid> POST_PARAM:{"permissions":["perm5"]}
 @csrf_exempt
 def modify_role_permissions(request, role_id):
-    message = ''
-    status = 400
+    if request.method == "POST":
+        message = ''
+        status = 400
 
-    try:
-        body_data = json.loads(request.body.decode('utf-8'))
-    except:
-        return JsonResponse({"message": "Invalid parameters passed"}, status= 400, safe=False)
+        try:
+            body_data = json.loads(request.body.decode('utf-8'))
+        except:
+            return JsonResponse({"message": "Invalid parameters passed"}, status= 400, safe=False)
 
-    if 'permissions' not in body_data:
-        return JsonResponse({"message": "permissions key is not passed"}, status= 400, safe=False)
-    
-    permission_ids = body_data['permissions']
+        if 'permissions' not in body_data:
+            return JsonResponse({"message": "permissions key is not passed"}, status= 400, safe=False)
+        
+        permission_ids = body_data['permissions']
 
-    role_details = get_role_details(role_id)
-    if not role_details:
-        return JsonResponse({"message": "Invalid Role ID"}, status= 404, safe=False)
+        role_details = get_role_details(role_id)
+        if not role_details:
+            return JsonResponse({"message": "Invalid Role ID"}, status= 404, safe=False)
 
-    for i in permission_ids:
-        if get_permission_details(i) and not i in role_details['permissions']:
-            role_details['permissions'].append(i)
-            message = message + ' Permission ' + str(i) +' added.'
-            status = 200
+        for i in permission_ids:
+            if get_permission_details(i) and not i in role_details['permissions']:
+                role_details['permissions'].append(i)
+                message = message + ' Permission ' + str(i) +' added.'
+                status = 200
 
-        else:
-            message = message + ' Permission not added since permission ' + str(i) + ' is invalid or permission exists.'
-    
-    return JsonResponse({"message": message}, status=status, safe=False)
+            else:
+                message = message + ' Permission not added since permission ' + str(i) + ' is invalid or permission exists.'
+        
+        return JsonResponse({"message": message}, status=status, safe=False)
+    else:
+        return error_404(request, None)
 
 # /permissions/<permission_id> 
 @csrf_exempt
 def delete_permissions(request, permission_id):
-    permission_data = delete_permission(permission_id)
-    if permission_data:
-        status = delete_roles_permission(permission_id)
-        if status == "Success":
-            return JsonResponse({'message': "Permission deleted"}, status= 200, safe=False)    
-        elif status == "Error":
-            return JsonResponse({'message': "Unexpected Error."}, status= 500, safe=False)
+    if request.method == "DELETE":
+        permission_data = delete_permission(permission_id)
+        if permission_data:
+            status = delete_roles_permission(permission_id)
+            if status == "Success":
+                return JsonResponse({'message': "Permission deleted"}, status= 200, safe=False)    
+            elif status == "Error":
+                return JsonResponse({'message': "Unexpected Error."}, status= 500, safe=False)
+        else:
+            return JsonResponse({'message': "Permission does not exist"}, status= 404, safe=False)
     else:
-        return JsonResponse({'message': "Permission does not exist"}, status= 404, safe=False)
+        return error_404(request, None)
 
+@csrf_exempt
 def error_404(request, page_not_found):
     return JsonResponse({'message': "Page does not exist"}, status= 404, safe=False)
