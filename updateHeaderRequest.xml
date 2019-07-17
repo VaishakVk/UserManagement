@@ -1,0 +1,18 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/" xmlns:pur="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/" xmlns:draf="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchaseOrderDistribution/" xmlns:pjc="http://xmlns.oracle.com/apps/prc/po/commonPo/flex/PJCPoDraftDistribution/" xmlns:draf1="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchasingDocumentSchedule/" xmlns:draf2="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchasingDocumentLine/" xmlns:draf3="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchasingDocumentHeader/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:changePurchaseOrder>
+         <typ:changeOrderEntry>
+            <!--Optional:-->
+            <pur:POHeaderId>300000022688481</pur:POHeaderId>
+            <!--Optional:-->
+            <pur:BillToLocationCode>Avis Budget House</pur:BillToLocationCode>
+            <!--Optional:-->
+            <pur:DocumentDescription>Test</pur:DocumentDescription>
+            <!--Optional:-->
+            <pur:ChangeOrderDescription>COTest</pur:ChangeOrderDescription>
+            <!--Optional:-->
+         </typ:changeOrderEntry>
+      </typ:changePurchaseOrder>
+   </soapenv:Body>
+</soapenv:Envelope>

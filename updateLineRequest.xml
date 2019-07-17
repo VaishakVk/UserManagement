@@ -1,0 +1,27 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/" xmlns:pur="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/" xmlns:draf="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchaseOrderDistribution/" xmlns:pjc="http://xmlns.oracle.com/apps/prc/po/commonPo/flex/PJCPoDraftDistribution/" xmlns:draf1="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchasingDocumentSchedule/" xmlns:draf2="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchasingDocumentLine/" xmlns:draf3="http://xmlns.oracle.com/apps/prc/po/editDocument/flex/draftPurchasingDocumentHeader/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:changePurchaseOrder>
+         <typ:changeOrderEntry>
+            <!--Optional:-->
+            <pur:POHeaderId>150003</pur:POHeaderId>
+            <!--Optional:-->
+            <pur:ChangeOrderDescription>Update Item</pur:ChangeOrderDescription>
+            <!--Optional:-->
+            <!--Zero or more repetitions:-->
+            <pur:PurchaseOrderEntryLine>
+               <!--Optional:-->
+               <pur:POLineId>369003</pur:POLineId>
+               <!--Optional:-->
+               <pur:ItemDescription>CO Test</pur:ItemDescription>
+               <!--Optional:-->
+               <pur:Quantity unitCode="Ea">2</pur:Quantity>
+            </pur:PurchaseOrderEntryLine>
+            <!--Optional:-->
+            
+            <!--Optional:-->
+            
+         </typ:changeOrderEntry>
+      </typ:changePurchaseOrder>
+   </soapenv:Body>
+</soapenv:Envelope>
