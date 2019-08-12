@@ -1,0 +1,17 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/" xmlns:pur="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:cancelPurchaseOrder>
+         <typ:cancelOrderParameter>
+            <!--Optional:-->
+            <!--Optional:-->
+            <pur:OrderNumber>223</pur:OrderNumber>
+            <!--Optional:-->
+            
+            <pur:SoldToLegalEntity>W.T.H. Pty Ltd</pur:SoldToLegalEntity>
+            <!--Zero or more repetitions:-->
+            <pur:CancelReason>Test</pur:CancelReason>
+         </typ:cancelOrderParameter>
+      </typ:cancelPurchaseOrder>
+   </soapenv:Body>
+</soapenv:Envelope>

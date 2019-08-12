@@ -1,0 +1,17 @@
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:typ="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/">
+   <env:Header>
+      <wsa:Action>http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2//PurchaseOrderService/cancelPurchaseOrderResponse</wsa:Action>
+      <wsa:MessageID>urn:uuid:e731e4bb-6918-4489-8a18-680e1a67ae52</wsa:MessageID>
+   </env:Header>
+   <env:Body>
+      <ns0:cancelPurchaseOrderResponse xmlns:ns0="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/">
+         <ns1:result xsi:type="ns0:RequestResults" xmlns:ns1="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/" xmlns:ns0="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:POHeaderId>300000022753220</ns0:POHeaderId>
+            <ns0:OrderNumber>223</ns0:OrderNumber>
+            <ns0:SoldToLegalEntityId>300000002405015</ns0:SoldToLegalEntityId>
+            <ns0:ChangeOrderNumber>1</ns0:ChangeOrderNumber>
+            <ns0:RequestStatus>SUCCESS</ns0:RequestStatus>
+         </ns1:result>
+      </ns0:cancelPurchaseOrderResponse>
+   </env:Body>
+</env:Envelope>
